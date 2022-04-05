@@ -1,17 +1,32 @@
 import { UseGuards } from '@nestjs/common';
-import { Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { AuthorizationGuard } from 'src/http/auth/authorization.guard';
+import { ProductsService } from 'src/services/products.service';
 import { PurchasesService } from 'src/services/purchases.service';
 import { Purchase } from '../models/purchase';
 
-@Resolver()
+@Resolver(() => Purchase)
 export class PurchasesResolver {
-  constructor(private service: PurchasesService) {}
+  constructor(
+    private purchasesService: PurchasesService,
+    private productsService: ProductsService,
+  ) {}
 
   @Query(() => [Purchase])
   @UseGuards(AuthorizationGuard)
   listPurchases() {
-    return this.service.findAll();
+    return this.purchasesService.findAll();
+  }
+
+  @ResolveField()
+  product(@Parent() purchase: Purchase) {
+    return this.productsService.findById(purchase.productId);
   }
 
   @Mutation(() => Purchase)

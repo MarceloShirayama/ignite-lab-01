@@ -33,6 +33,10 @@ export class ProductsService {
     return this.prisma.product.findMany();
   }
 
+  findById(id: string): Promise<Product> {
+    return this.prisma.product.findUnique({ where: { id } });
+  }
+
   async create({ title }: createProductInput): Promise<Product> {
     const slug = stringToSlug(title, '-');
 
