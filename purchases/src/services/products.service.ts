@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma/prisma.service';
 import { Product } from 'src/http/graphql/models/product';
 
-type createProductInput = Pick<Product, 'title'>;
+type CreateProductInput = Pick<Product, 'title'>;
 
 function stringToSlug(str: string, separator: string): string {
   str = str.trim();
@@ -37,7 +37,7 @@ export class ProductsService {
     return this.prisma.product.findUnique({ where: { id } });
   }
 
-  async create({ title }: createProductInput): Promise<Product> {
+  async create({ title }: CreateProductInput): Promise<Product> {
     const slug = stringToSlug(title, '-');
 
     const alreadyExists = await this.prisma.product.findUnique({
