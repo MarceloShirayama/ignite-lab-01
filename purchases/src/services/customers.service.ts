@@ -11,7 +11,7 @@ export class CustomersService {
     return this.prisma.customer.findUnique({ where: { authUserId } });
   }
 
-  async create({ authUserId }: CreateCustomerParams): Promise<any> {
+  async create({ authUserId }: CreateCustomerParams) {
     return this.prisma.customer.create({ data: { authUserId } });
   }
 }
