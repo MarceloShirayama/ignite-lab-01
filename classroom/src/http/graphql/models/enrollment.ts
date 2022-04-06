@@ -11,7 +11,7 @@ export class Enrollment {
   student: Student;
   studentId: string;
 
-  @Field(() => Student)
+  @Field(() => Course)
   course: Course;
   courseId: string;
 
