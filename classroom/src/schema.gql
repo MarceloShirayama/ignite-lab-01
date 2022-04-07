@@ -8,14 +8,14 @@ type Course {
   slug: String!
 }
 
-type Student {
-  id: ID!
+type User {
+  authUserId: ID!
   enrollments: [Enrollment!]!
 }
 
 type Enrollment {
   id: ID!
-  student: Student!
+  student: User!
   course: Course!
   canceledAt: DateTime
   createdAt: DateTime!
@@ -29,8 +29,7 @@ scalar DateTime
 type Query {
   courses: [Course!]!
   course(id: String!): Course!
-  students: [Student!]!
-  me: Student!
+  students: [User!]!
   enrollments: [Enrollment!]!
 }
 
