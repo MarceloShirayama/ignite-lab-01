@@ -6,9 +6,14 @@ import {
   InMemoryCache,
   NormalizedCacheObject
 } from '@apollo/client'
-import { NextPage } from 'next'
+import { GetServerSidePropsContext, NextPage } from 'next'
 
-function getApolloClient(ssrCache?: NormalizedCacheObject) {
+export type ApolloClientContext = GetServerSidePropsContext
+
+export function getApolloClient(
+  ctx?: ApolloClientContext,
+  ssrCache?: NormalizedCacheObject
+) {
   const httpLink = createHttpLink({
     uri: 'http://localhost:3332/graphql',
     fetch
@@ -25,7 +30,7 @@ function getApolloClient(ssrCache?: NormalizedCacheObject) {
 export const withApollo = (Component: NextPage) => {
   return function Provider(props: any) {
     return (
-      <ApolloProvider client={getApolloClient(props.apolloState)}>
+      <ApolloProvider client={getApolloClient(undefined, props.apolloState)}>
         <Component {...props} />
       </ApolloProvider>
     )
