@@ -25,7 +25,7 @@ export class PurchasesResolver {
 
   @Query(() => [Purchase])
   @UseGuards(AuthorizationGuard)
-  listPurchases() {
+  purchases() {
     return this.purchasesService.findAll();
   }
 
