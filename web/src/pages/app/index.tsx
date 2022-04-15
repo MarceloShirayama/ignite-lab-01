@@ -12,7 +12,7 @@ function Home(props: Props) {
   const { data: me } = useMeQuery()
 
   return (
-    <div>
+    <div className="text-violet-500">
       <h1>Hello Ignite Lab</h1>
       <pre>{JSON.stringify(me, null, 2)}</pre>
       <pre>{JSON.stringify(props, null, 2)}</pre>
